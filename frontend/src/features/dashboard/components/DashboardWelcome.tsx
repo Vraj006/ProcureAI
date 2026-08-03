@@ -14,12 +14,12 @@ export function DashboardWelcome({ userName, workspaceId }: { userName: string, 
         </p>
       </div>
       <div>
-        <Button variant="secondary" className="whitespace-nowrap" asChild>
-          <Link href={href}>
+        <Link href={href}>
+          <Button variant="secondary" className="whitespace-nowrap">
             <Plus className="mr-2 h-4 w-4" />
             New Project
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
     </div>
   );
