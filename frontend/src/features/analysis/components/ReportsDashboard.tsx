@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { Download, FileText, FileSpreadsheet, CheckCircle2 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
