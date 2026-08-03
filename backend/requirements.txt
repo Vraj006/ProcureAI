@@ -1,0 +1,55 @@
+# =============================================================================
+# ProcureAI Backend — Python Dependencies
+# =============================================================================
+# Pin major versions for reproducible builds. Update deliberately.
+# =============================================================================
+
+# Web framework
+fastapi>=0.115.0,<1.0.0
+uvicorn[standard]>=0.32.0,<1.0.0
+
+# Data validation and settings
+pydantic[email]>=2.10.0,<3.0.0
+pydantic-settings>=2.6.0,<3.0.0
+
+# Database
+sqlalchemy>=2.0.36,<3.0.0
+psycopg2-binary>=2.9.10,<3.0.0
+
+# Cache (for future use)
+redis>=5.2.0,<6.0.0
+
+# Vector database (for future RAG)
+qdrant-client>=1.12.0,<2.0.0
+
+# HTTP client (for external API integrations)
+httpx>=0.28.0,<1.0.0
+
+# Environment file loading
+python-dotenv>=1.0.1,<2.0.0
+
+# Authentication
+python-jose[cryptography]>=3.3.0,<4.0.0
+bcrypt>=4.0.0,<6.0.0
+python-multipart>=0.0.9,<1.0.0
+
+# Migrations
+alembic>=1.13.0,<2.0.0
+
+# Document Processing
+pymupdf>=1.24.0,<2.0.0
+paddlepaddle>=2.6.0,<3.0.0; sys_platform != 'darwin' or platform_machine != 'arm64'
+paddlepaddle-macos>=2.6.0,<3.0.0; sys_platform == 'darwin' and platform_machine == 'arm64'
+paddleocr>=2.7.0,<3.0.0
+
+# AI / LLM
+mistralai>=1.0.0,<3.0.0
+tenacity>=8.2.0,<10.0.0
+
+# LangGraph orchestration
+langgraph>=0.3.0,<1.0.0
+
+# Testing
+pytest>=8.3.0,<9.0.0
+pytest-asyncio>=0.24.0,<1.0.0
+httpx>=0.28.0,<1.0.0

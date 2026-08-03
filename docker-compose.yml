@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: procureai-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: procureai
+      POSTGRES_PASSWORD: procureai123
+      POSTGRES_DB: procureai
+
+    ports:
+      # Host port 5433 avoids conflict with local PostgreSQL installations on 5432
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+
+    container_name: procureai-redis
+
+    restart: unless-stopped
+
+    ports:
+      - "6379:6379"
+
+  qdrant:
+    image: qdrant/qdrant:latest
+
+    container_name: procureai-qdrant
+
+    restart: unless-stopped
+
+    ports:
+      - "6333:6333"
+
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+volumes:
+
+  postgres_data:
+
+  qdrant_data:
