@@ -92,11 +92,16 @@ class DocumentProcessor:
         """Initialize and return the PaddleOCR engine locally."""
         if self._ocr_engine is None:
             try:
+                import os
+                    
+                os.environ["FLAGS_enable_pir_api"] = "0"
+                os.environ["FLAGS_use_mkldnn"] = "0"
+                
                 from paddleocr import PaddleOCR
 
                 # Initialize PaddleOCR with English language. Use CPU by default to avoid GPU dependency issues.
                 logger.info("Initializing PaddleOCR engine...")
-                self._ocr_engine = PaddleOCR(use_angle_cls=True, lang="en", show_log=False)
+                self._ocr_engine = PaddleOCR(lang="en")
             except ImportError as e:
                 logger.error("PaddleOCR is not installed or failed to load: %s", e)
                 raise RuntimeError("OCR engine unavailable.") from e
@@ -253,7 +258,7 @@ class DocumentProcessor:
                 img_array = img_array[:, :, ::-1]
 
             # Run OCR on the image
-            result = ocr.ocr(img_array, cls=True)
+            result = ocr.ocr(img_array)
 
             page_words = []
             if result and result[0]:
