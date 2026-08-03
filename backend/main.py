@@ -19,6 +19,7 @@ from app.api.routes.projects import router as projects_router
 from app.api.routes.vendors import router as vendors_router
 from app.api.routes.quotations import router as quotations_router
 from app.api.routes.analysis import router as analysis_router
+from app.api.routes.reports import router as reports_router
 from app.core.config import settings
 from app.core.logging import get_logger, setup_logging
 from app.database.database import check_database_connection
@@ -98,6 +99,7 @@ def create_app() -> FastAPI:
     app.include_router(vendors_router, prefix=_API_V1_PREFIX)
     app.include_router(quotations_router, prefix=_API_V1_PREFIX)
     app.include_router(analysis_router, prefix=_API_V1_PREFIX)
+    app.include_router(reports_router, prefix=_API_V1_PREFIX)
 
     return app
 

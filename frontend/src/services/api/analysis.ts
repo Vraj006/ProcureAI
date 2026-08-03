@@ -75,4 +75,20 @@ export const analysisApi = {
     );
     return data;
   },
+
+  downloadPdfReport: async (workspaceId: string, projectId: string) => {
+    const response = await apiClient.get(
+      `/workspaces/${workspaceId}/projects/${projectId}/report/pdf`,
+      { responseType: "blob" }
+    );
+    return response.data;
+  },
+
+  downloadExcelReport: async (workspaceId: string, projectId: string) => {
+    const response = await apiClient.get(
+      `/workspaces/${workspaceId}/projects/${projectId}/report/excel`,
+      { responseType: "blob" }
+    );
+    return response.data;
+  },
 };

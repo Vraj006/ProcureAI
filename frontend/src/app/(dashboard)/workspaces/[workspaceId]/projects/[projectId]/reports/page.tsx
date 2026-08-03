@@ -1,5 +1,14 @@
-import { Sprint3Placeholder } from "@/features/projects/components/Sprint3Placeholder";
+import { ReportsDashboard } from "@/features/analysis/components/ReportsDashboard";
 
-export default function ReportsPage() {
-  return <Sprint3Placeholder featureName="Reports" />;
+export default async function ReportsPage({
+  params,
+}: {
+  params: Promise<{ workspaceId: string; projectId: string }>;
+}) {
+  const resolvedParams = await params;
+  return (
+    <div className="pt-4">
+      <ReportsDashboard workspaceId={resolvedParams.workspaceId} projectId={resolvedParams.projectId} />
+    </div>
+  );
 }
