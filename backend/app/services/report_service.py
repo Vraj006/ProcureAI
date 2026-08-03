@@ -170,9 +170,9 @@ class ReportService:
         
         for q in data["quotations"]:
             ws.append([
-                q.vendor_name or "Unknown",
+                q.vendor.company_name if getattr(q, 'vendor', None) else "Unknown",
                 q.file_name,
-                q.status.value,
+                getattr(q.status, "value", str(q.status)),
                 str(q.created_at)
             ])
 
@@ -304,9 +304,9 @@ class ReportService:
         # PAGE 9: APPENDIX
         story.append(Paragraph("Appendix (Quotation Audit Trail)", header_style))
         for q in data["quotations"]:
-            story.append(Paragraph(f"<b>Vendor:</b> {q.vendor_name}", normal_style))
+            story.append(Paragraph(f"<b>Vendor:</b> {q.vendor.company_name if getattr(q, 'vendor', None) else 'Unknown'}", normal_style))
             story.append(Paragraph(f"<b>File:</b> {q.file_name}", normal_style))
-            story.append(Paragraph(f"<b>Status:</b> {q.status.value}", normal_style))
+            story.append(Paragraph(f"<b>Status:</b> {getattr(q.status, 'value', str(q.status))}", normal_style))
             story.append(Spacer(1, 15))
         story.append(PageBreak())
 

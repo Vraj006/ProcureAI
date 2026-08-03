@@ -5,25 +5,15 @@ import Link from "next/link";
 export function QuickActions({ workspaceId }: { workspaceId?: string }) {
   const actions = [
     {
-      title: "New Project",
-      href: workspaceId ? `/workspaces/${workspaceId}/projects/new` : "/workspaces",
+      title: "Projects",
+      href: workspaceId ? `/workspaces/${workspaceId}/projects` : "/workspaces",
       icon: Plus,
     },
     {
       title: "All Workspaces",
       href: "/workspaces",
       icon: ListFilter,
-    },
-    {
-      title: "Vendors",
-      href: "#",
-      icon: Users,
-    },
-    {
-      title: "Settings",
-      href: "#",
-      icon: Settings,
-    },
+    }
   ];
 
   return (

@@ -3,10 +3,13 @@ from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 
-from app.api.dependencies import get_db
+from app.database.database import get_db
 from app.services.report_service import ReportService
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/workspaces",
+    tags=["Reports"],
+)
 
 @router.get("/{workspace_id}/projects/{project_id}/report/pdf", summary="Download Executive PDF")
 def download_executive_pdf(

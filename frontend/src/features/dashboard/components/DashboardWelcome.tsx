@@ -13,14 +13,6 @@ export function DashboardWelcome({ userName, workspaceId }: { userName: string, 
           Here is what is happening with your procurement intelligence today.
         </p>
       </div>
-      <div>
-        <Link href={href}>
-          <Button variant="secondary" className="whitespace-nowrap">
-            <Plus className="mr-2 h-4 w-4" />
-            New Project
-          </Button>
-        </Link>
-      </div>
     </div>
   );
 }

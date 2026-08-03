@@ -187,10 +187,20 @@ class AnalysisService:
         )
         
         try:
-            # Invoking LangGraph natively correctly patches recommendations under the hood! 
+            project = self._validate_project(workspace_id, project_id)
+            
+            # If the cycle is firmly finalized (approved/rejected), we freeze the state without triggering LangGraph
+            if payload.status in ("approved", "rejected"):
+                meta = dict(project.metadata_) if project.metadata_ else {}
+                meta["human_review"] = payload.status
+                project.metadata_ = meta
+                self._project_repo.update(project)
+                self._db.commit()
+                return {"success": True, "message": "Review finalized and recommendation frozen."}
+
+            # If looping back, invoke the DAG natively to let the AI reassess with reviewer comments!
             state = run_procurement_workflow(project_id, self._db, self._llm, human_feedback=feedback)
             
-            project = self._validate_project(workspace_id, project_id)
             if state.get("recommendation_result"):
                 meta = dict(project.metadata_) if project.metadata_ else {}
                 meta["recommendation"] = state["recommendation_result"].model_dump(mode='json')

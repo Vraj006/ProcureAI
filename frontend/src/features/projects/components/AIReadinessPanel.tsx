@@ -59,27 +59,6 @@ export function AIReadinessPanel({ hasVendors, hasQuotations, allQuotationsUploa
           </div>
         </div>
 
-        <div className="pt-4 border-t">
-          <Button 
-            className="w-full relative overflow-hidden group" 
-            disabled={!isReady}
-            size="lg"
-            onClick={onAnalyze}
-          >
-            {isReady && (
-              <span className="absolute inset-0 bg-primary-foreground/20 w-0 group-hover:w-full transition-all duration-300 ease-out z-0" />
-            )}
-            <span className="relative z-10 flex items-center gap-2 font-semibold tracking-wide">
-              <Sparkles className="h-4 w-4" /> 
-              {isReady ? "Analyze Procurement" : "Analysis Locked"}
-            </span>
-          </Button>
-          {!isReady && (
-            <p className="text-center text-xs text-muted-foreground font-medium mt-3">
-              Resolve pending items to commence mapping.
-            </p>
-          )}
-        </div>
       </CardContent>
     </Card>
   );

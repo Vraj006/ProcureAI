@@ -9,8 +9,6 @@ import { useAuth } from "@/providers/auth-provider";
 const NAV_ITEMS = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Workspaces", href: "/workspaces", icon: FolderKanban },
-  { name: "Reports", href: "/reports", icon: FileBarChart },
-  { name: "Settings", href: "/settings", icon: Settings },
 ];
 
 export function Sidebar() {

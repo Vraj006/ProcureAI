@@ -73,7 +73,6 @@ export default function DashboardPage() {
         </div>
         <div className="lg:col-span-3 space-y-6">
           <QuickActions workspaceId={defaultWorkspaceId} />
-          <ActivityTimeline />
         </div>
       </div>
     </div>

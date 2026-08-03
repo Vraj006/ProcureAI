@@ -1,7 +1,7 @@
 import { QuotationResponse, VendorResponse } from "@/services/api/types";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { MoreHorizontal, FileText, Trash, UploadCloud, RefreshCw, ChevronDown, ChevronRight, Layers } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -60,18 +60,24 @@ export function QuotationTable({ quotations, vendors, extractions = [], onUpload
                 {getVendorName(quotation.vendor_id)}
               </TableCell>
               <TableCell>
-                {quotation.file_name ? (
-                  <div className="flex items-center text-sm font-medium text-blue-600">
-                    <FileText className="h-4 w-4 mr-1.5" />
-                    <span className="truncate max-w-[150px]" title={quotation.file_name}>
-                      {quotation.file_name}
-                    </span>
-                  </div>
-                ) : (
-                  <Badge variant="secondary" className="bg-amber-100 text-amber-700 hover:bg-amber-100 font-normal">
-                    Pending Upload
-                  </Badge>
-                )}
+                <div className="flex items-center gap-3">
+                  {quotation.file_name ? (
+                    <div className="flex items-center text-sm font-medium text-blue-600">
+                      <FileText className="h-4 w-4 mr-1.5" />
+                      <span className="truncate max-w-[150px]" title={quotation.file_name}>
+                        {quotation.file_name}
+                      </span>
+                    </div>
+                  ) : (
+                    <Badge variant="secondary" className="bg-amber-100 text-amber-700 hover:bg-amber-100 font-normal">
+                      Pending Upload
+                    </Badge>
+                  )}
+                  <Button variant="outline" size="sm" className="h-7 text-xs px-2" onClick={() => onUpload(quotation)}>
+                    {quotation.file_name ? <RefreshCw className="mr-1.5 h-3 w-3" /> : <UploadCloud className="mr-1.5 h-3 w-3" />}
+                    {quotation.file_name ? "Replace" : "Upload"}
+                  </Button>
+                </div>
               </TableCell>
               <TableCell className="text-sm">
                 {quotation.total_amount ? (
@@ -96,14 +102,6 @@ export function QuotationTable({ quotations, vendors, extractions = [], onUpload
                     <MoreHorizontal className="h-4 w-4 text-muted-foreground" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => onUpload(quotation)}>
-                      {quotation.file_name ? (
-                        <><RefreshCw className="mr-2 h-4 w-4" /> Replace Document</>
-                      ) : (
-                        <><UploadCloud className="mr-2 h-4 w-4" /> Upload PDF</>
-                      )}
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       onClick={() => onDelete(quotation)}
                       className="text-destructive focus:text-destructive focus:bg-destructive/10"

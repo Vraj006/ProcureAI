@@ -32,74 +32,98 @@ export function VendorDetailsDrawer({ vendor, open, onOpenChange, onEditClick }:
           </SheetDescription>
         </SheetHeader>
 
-        <div className="space-y-6">
+          <div className="space-y-6 flex-1 px-1">
           {/* Identity Info */}
-          <div>
-            <h4 className="text-sm font-medium text-muted-foreground mb-3">Identity</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm">
-                <Hash className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium text-foreground">GST/Tax:</span>
-                <span className="text-muted-foreground">{vendor.tax_number || "Not provided"}</span>
+          <div className="bg-card border rounded-xl overflow-hidden shadow-sm">
+            <div className="bg-muted/50 px-4 py-3 border-b flex items-center justify-between">
+              <h4 className="text-sm font-semibold tracking-tight">Identity Details</h4>
+              <Building className="w-4 h-4 text-muted-foreground/70" />
+            </div>
+            <div className="p-4 space-y-4">
+              <div className="grid grid-cols-[24px_1fr] items-start gap-2 text-sm">
+                <Hash className="w-4 h-4 text-primary mt-0.5" />
+                <div>
+                  <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">GST/Tax Registration</span>
+                  <span className="font-medium text-foreground">{vendor.tax_number || "Not Available"}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Building className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium text-foreground">Address:</span>
-                <span className="text-muted-foreground">{vendor.address || "Not provided"}</span>
+              <div className="grid grid-cols-[24px_1fr] items-start gap-2 text-sm">
+                <Building className="w-4 h-4 text-primary mt-0.5" />
+                <div>
+                  <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">Corporate Address</span>
+                  <span className="font-medium text-foreground">{vendor.address || "No address provided"}</span>
+                </div>
               </div>
             </div>
           </div>
-
-          <Separator />
 
           {/* Contact Info */}
-          <div>
-            <h4 className="text-sm font-medium text-muted-foreground mb-3">Primary Contact</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm">
-                <span className="font-medium text-foreground ml-7">{vendor.contact_person || "No name provided"}</span>
+          <div className="bg-card border rounded-xl overflow-hidden shadow-sm">
+            <div className="bg-muted/50 px-4 py-3 border-b flex items-center justify-between">
+              <h4 className="text-sm font-semibold tracking-tight">Primary Contact</h4>
+              <Phone className="w-4 h-4 text-muted-foreground/70" />
+            </div>
+            <div className="p-4 space-y-4">
+              <div className="grid grid-cols-[24px_1fr] items-start gap-2 text-sm">
+                <span className="w-4 h-4 rounded-full bg-primary/20 text-primary flex items-center justify-center text-[9px] font-bold mt-0.5 uppercase">
+                  {vendor.contact_person ? vendor.contact_person[0] : "?"}
+                </span>
+                <div>
+                  <span className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-0.5">Point of Contact</span>
+                  <span className="font-medium text-foreground">{vendor.contact_person || "Unassigned"}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Mail className="w-4 h-4 text-muted-foreground" />
-                {vendor.email ? (
-                  <a href={`mailto:${vendor.email}`} className="text-primary hover:underline">{vendor.email}</a>
-                ) : (
-                  <span className="text-muted-foreground">Not provided</span>
-                )}
-              </div>
-              <div className="flex items-center gap-3 text-sm">
-                <Phone className="w-4 h-4 text-muted-foreground" />
-                {vendor.phone ? (
-                  <a href={`tel:${vendor.phone}`} className="text-primary hover:underline">{vendor.phone}</a>
-                ) : (
-                  <span className="text-muted-foreground">Not provided</span>
-                )}
+              
+              <div className="grid grid-cols-2 gap-4 pt-2">
+                <div className="space-y-1.5 p-3 rounded-lg border bg-muted/10">
+                  <div className="flex items-center text-xs text-muted-foreground font-medium">
+                    <Mail className="w-3.5 h-3.5 mr-1.5" /> Email Address
+                  </div>
+                  <div className="text-sm font-medium truncate">
+                    {vendor.email ? (
+                      <a href={`mailto:${vendor.email}`} className="text-blue-600 hover:underline">{vendor.email}</a>
+                    ) : (
+                      <span className="text-muted-foreground/50">Unknown</span>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="space-y-1.5 p-3 rounded-lg border bg-muted/10">
+                  <div className="flex items-center text-xs text-muted-foreground font-medium">
+                    <Phone className="w-3.5 h-3.5 mr-1.5" /> Phone Number
+                  </div>
+                  <div className="text-sm font-medium truncate">
+                    {vendor.phone ? (
+                      <a href={`tel:${vendor.phone}`} className="text-blue-600 hover:underline">{vendor.phone}</a>
+                    ) : (
+                      <span className="text-muted-foreground/50">Unknown</span>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
-          <Separator />
           
           {/* System Info */}
-          <div>
-            <h4 className="text-sm font-medium text-muted-foreground mb-3">System Metrics</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm">
-                <Calendar className="w-4 h-4 text-muted-foreground" />
-                <span className="font-medium text-foreground">Added On:</span>
-                <span className="text-muted-foreground">{new Date(vendor.created_at).toLocaleString()}</span>
+          <div className="bg-card border rounded-xl overflow-hidden shadow-sm">
+            <div className="p-4 flex items-center justify-between text-sm">
+              <div className="flex items-center text-muted-foreground">
+                <Calendar className="w-4 h-4 mr-2" />
+                <span className="font-medium">Registered Date</span>
               </div>
+              <span className="font-medium text-foreground">{new Date(vendor.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
           </div>
+        </div>
 
-          <div className="pt-6 flex gap-3">
-            <Button className="w-full" onClick={() => {
-              onOpenChange(false);
-              setTimeout(onEditClick, 200);
-            }}>
-              Edit Vendor
-            </Button>
-          </div>
+        {/* Footer overlay */}
+        <div className="mt-8 border-t pt-4 bg-background">
+          <Button size="lg" className="w-full shadow-sm" onClick={() => {
+            onEditClick();
+            setTimeout(() => onOpenChange(false), 50);
+          }}>
+            Edit Vendor Profile
+          </Button>
         </div>
       </SheetContent>
     </Sheet>
