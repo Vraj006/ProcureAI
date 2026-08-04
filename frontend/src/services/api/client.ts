@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+// The NEXT_PUBLIC_API_URL must be injected during docker build via ARG for production.
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "";
 
 export const apiClient = axios.create({
   baseURL: API_URL,
